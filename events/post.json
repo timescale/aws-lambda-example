@@ -1,0 +1,8 @@
+{
+  "body": "{\"temperature\":65,\"location\":\"bedroom\"}",
+  "resource": "/sensor",
+  "path": "/sensor",
+  "httpMethod": "POST",
+  "isBase64Encoded": false,
+  "protocol": "HTTP/1.1"
+  }

@@ -1,0 +1,66 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  written in python3.9
+
+  This is an example of an AWS Lambda time-series application that uses TimescaleDB on Timescale Cloud as a database!
+
+Globals:
+  Function:
+    Timeout: 3
+    MemorySize: 512
+    Environment:
+      Variables:
+        CONN_STRING: "postgres://tsdbadmin:password@hostname:5432/tsdb" # CHANGE ME!
+    VpcConfig:
+      SecurityGroupIds:
+        - sg-0123456789 # CHANGE ME
+      SubnetIds:
+        - subnet-0123456789 # CHANGE ME
+
+Resources:
+  GetSensorDataFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      PackageType: Image
+      Architectures:
+        - x86_64
+      Events:
+        GetSensorData:
+          Type: HttpApi
+          Properties:
+            Path: /sensor
+            Method: GET
+            ApiId: !Ref ApiResource
+    Metadata:
+      Dockerfile: Dockerfile
+      DockerContext: ./get_sensor_data
+      DockerTag: python3.9-v1
+
+  PostSensorDataFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      PackageType: Image
+      Architectures:
+        - x86_64
+      Events:
+        PostSensorDataMany:
+          Type: HttpApi 
+          Properties:
+            Path: /sensor
+            Method: POST
+            ApiId: !Ref ApiResource
+    Metadata:
+      Dockerfile: Dockerfile
+      DockerContext: ./post_sensor_data
+      DockerTag: python3.9-v1
+
+  ApiResource:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      StageName: dev
+
+Outputs:
+  SimpleLambdaApi:
+    Description: "API Gateway endpoint URL for dev stage for sensor_data functions"
+    Value: !Sub "https://${ApiResource}.execute-api.${AWS::Region}.amazonaws.com/dev/sensor"

@@ -1,0 +1,7 @@
+{
+  "resource": "/sensor",
+  "path": "/sensor",
+  "httpMethod": "GET",
+  "isBase64Encoded": false,
+  "protocol": "HTTP/1.1"
+  }

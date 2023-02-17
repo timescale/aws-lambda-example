@@ -1,0 +1,16 @@
+name: SamBuild
+
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          architecture: x64
+      - uses: aws-actions/setup-sam@v1
+      - run: sam build --use-container
