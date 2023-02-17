@@ -4,6 +4,8 @@ This repository serves as an example of an AWS Lambda time-series application th
 
 The application consists of two Lambda functions behind an API Gateway and a TimescaleDB instance on Timescale Cloud.
 
+![diagram of the architecture](https://raw.githubusercontent.com/timescale/aws-lambda-example/main/imgs/aws-diagram.png?token=GHSAT0AAAAAABVO32GFMSXWX7ZEJW2PSIV2Y7O6HRQ)
+
 ### PostSensorData
 This function takes in an API Gateway event with a body containing the location and temperature of the sensor reading. The function parses those parameters from the body and inserts them into a TimescaleDB database.
 
@@ -14,9 +16,6 @@ Event body:
     "temperature": 74
 }
 ```
-
-### GetSensorData
-This function takes no inputs but returns the latest 5 sensor readings ordered by time in an array.
 
 Response:
 ```json
@@ -34,6 +33,9 @@ Response:
     }
 ]
 ```
+
+### GetSensorData
+This function takes no inputs but returns the latest 5 sensor readings ordered by time in an array.
 
 ## Template
 In order to use this AWS SAM project, you need to modify the following records in the `template.yaml` file:
