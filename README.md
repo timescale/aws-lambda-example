@@ -2,9 +2,12 @@
 
 This repository serves as an example of an AWS Lambda time-series application that uses TimescaleDB on Timescale Cloud as a database!
 
+### Watch our video about this repository on YouTube!
+[![YouTube Thumbnail](https://raw.githubusercontent.com/timescale/aws-lambda-example/main/imgs/aws-timescale-cloud-lambda.png)](https://tsdb.co/aws-lambda-yt)
+
 The application consists of two Lambda functions behind an API Gateway and a TimescaleDB instance on Timescale Cloud.
 
-![diagram of the architecture](https://raw.githubusercontent.com/timescale/aws-lambda-example/main/imgs/aws-diagram.png?token=GHSAT0AAAAAABVO32GFMSXWX7ZEJW2PSIV2Y7O6HRQ)
+![diagram of the architecture](https://raw.githubusercontent.com/timescale/aws-lambda-example/main/imgs/aws-diagram.png)
 
 ### PostSensorData
 This function takes in an API Gateway event with a body containing the location and temperature of the sensor reading. The function parses those parameters from the body and inserts them into a TimescaleDB database.
